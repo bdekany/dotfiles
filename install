@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Copyright @bdekany
+# Learn more about CeCILL at http://www.cecill.info
+
+# Usage:
+# curl -fsSL https://raw.githubusercontent.com/bdekany/dotfiles/main/install | bash
+
+echo "🐚 dotfiles from bdekany"
+
+DOTFILES="dotfiles"
+
+echo "⏬ download dotfiles"
+if (which git) ; then
+  git clone https://github.com/bdekany/dotfiles.git
+else
+  curl -LO https://github.com/bdekany/dotfiles/archive/main.tar.gz
+  tar zxvf main.tar.gz
+  DOTFILES="dotfiles-main"
+fi
+
+cd $DOTFILES/src
+
+echo "🔁 Copying dotfiles"
+for file in $(ls) ; do
+  cp $file ~/.$file
+done
+
+echo "✔️  Installation done"
